@@ -34,7 +34,7 @@ function* sagaChangeRole({ id, userId, callback }) {
     }
     toast.success(response.message);
   } catch (error) {
-    if (error?.response?.status === 400 || error?.response?.status === 403) {
+    if (error?.response?.status === 400 || error?.response?.status === 403 || error?.response?.status === 404) {
       toast.error(error.response.data.message);
     } else {
       yield put(showPopup());
@@ -49,7 +49,7 @@ function* sagaDeleteUser({ id }) {
     yield put(deleteUser(id));
     toast.success(response.message);
   } catch (error) {
-    if (error?.response?.status === 400 || error?.response?.status === 403) {
+    if (error?.response?.status === 400 || error?.response?.status === 403 || error?.response?.status === 404) {
       toast.error(error.response.data.message);
     } else {
       yield put(showPopup());
