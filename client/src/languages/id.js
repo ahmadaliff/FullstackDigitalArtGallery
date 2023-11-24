@@ -57,4 +57,5 @@ export default {
 
   app_category_list_header: 'Daftar Kategori',
   app_user_list_header: 'Daftar Pengguna',
+  app_your_account: 'Akun kamu',
 };

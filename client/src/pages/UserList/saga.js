@@ -4,7 +4,7 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import { changeRoleUserApi, deleteUserApi, getUsersApi } from '@domain/api';
 
 import { CHANGE_ROLE, DELETE_USER, GET_USERS } from '@pages/UserList/constants';
-import { deleteUser, setRole, setUsers } from '@pages/UserList/actions';
+import { resetUsers, setRole, setUsers } from '@pages/UserList/actions';
 import { showPopup, setLoading } from '@containers/App/actions';
 import { setLogout } from '@containers/Client/actions';
 
@@ -42,12 +42,15 @@ function* sagaChangeRole({ id, userId, callback }) {
   }
   yield put(setLoading(false));
 }
-function* sagaDeleteUser({ id }) {
+function* sagaDeleteUser({ id, userId, callback }) {
   yield put(setLoading(true));
   try {
     const response = yield call(deleteUserApi, id);
-    yield put(deleteUser(id));
     toast.success(response.message);
+    yield put(resetUsers());
+    if (userId === id) {
+      yield call(callback);
+    }
   } catch (error) {
     if (error?.response?.status === 400 || error?.response?.status === 403 || error?.response?.status === 404) {
       toast.error(error.response.data.message);

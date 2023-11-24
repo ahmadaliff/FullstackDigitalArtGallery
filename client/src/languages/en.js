@@ -57,4 +57,5 @@ export default {
 
   app_category_list_header: 'Category List',
   app_user_list_header: 'User List',
+  app_your_account: 'Your Account',
 };

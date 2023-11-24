@@ -28,9 +28,9 @@ function* getFav() {
     const response = yield call(getdataFav);
     yield put(setFav(response.data));
   } catch (error) {
-    if (error?.response?.status === 400 || error?.response?.status === 404) {
+    if (error?.response?.status === 400) {
       toast.error(error.response.data.message);
-    } else {
+    } else if (error?.response?.status !== 404) {
       yield put(showPopup());
     }
   }

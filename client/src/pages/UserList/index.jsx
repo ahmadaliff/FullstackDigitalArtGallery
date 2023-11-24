@@ -13,6 +13,7 @@ import { changeRole, deleteUser, getUsers, resetUsers } from '@pages/UserList/ac
 import { selectDataUsers, selectLogin, selectUser } from '@pages/UserList/selectors';
 
 import classes from '@pages/UserList/style.module.scss';
+import { validateLogout } from '@pages/Login/actions';
 
 const UserList = ({ login, user, usersData, intl: { formatMessage } }) => {
   const navigate = useNavigate();
@@ -40,8 +41,14 @@ const UserList = ({ login, user, usersData, intl: { formatMessage } }) => {
   }, [usersData, dispatch]);
 
   const handleDeleteUser = (id) => {
-    dispatch(deleteUser(id));
+    dispatch(
+      deleteUser(id, user.id, () => {
+        toast.error('you delete your account, your logout');
+        dispatch(validateLogout(() => navigate('/login')));
+      })
+    );
   };
+
   const handlechangeRole = (id) => {
     dispatch(
       changeRole(id, user.id, () => {
@@ -60,6 +67,11 @@ const UserList = ({ login, user, usersData, intl: { formatMessage } }) => {
         {usersData?.map((val, key) => (
           <Card key={key} className={classes.userWrap}>
             <div className={classes.userData}>
+              {val?.id === user?.id && (
+                <b>
+                  <FormattedMessage id="app_your_account" />
+                </b>
+              )}
               <p>
                 <FormattedMessage id="app_user_fullName" /> :{val.fullName}
               </p>

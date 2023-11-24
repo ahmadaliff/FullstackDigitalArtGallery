@@ -20,7 +20,9 @@ export const setRole = (user) => ({
   type: SET_ROLE,
   user,
 });
-export const deleteUser = (id) => ({
+export const deleteUser = (id, userId, callback) => ({
   type: DELETE_USER,
   id,
+  userId,
+  callback,
 });

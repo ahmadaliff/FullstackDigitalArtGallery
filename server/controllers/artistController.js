@@ -36,7 +36,7 @@ exports.addArt = async (req, res) => {
     const response = await Art.create(newArt);
     return handleCreated(res, {
       data: response,
-      message: "success, Your Art need to aca by admin to show on homepage",
+      message: "success, Your Art need to acc by admin to show on homepage",
     });
   } catch (error) {
     return handleServerError(res);
