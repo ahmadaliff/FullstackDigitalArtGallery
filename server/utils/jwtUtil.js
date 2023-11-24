@@ -18,7 +18,10 @@ exports.createToken = (user) => {
 };
 
 exports.verifyToken = (token) => {
-  return jwt.verify(token, secretKey);
+  return jwt.verify(token, secretKey, (err, decoded) => {
+    if (decoded) return decoded;
+    if (err) return { error: true };
+  });
 };
 
 exports.createRefreshToken = (user) => {
@@ -32,7 +35,10 @@ exports.createRefreshToken = (user) => {
 };
 
 exports.verifyRefreshToken = (token) => {
-  return jwt.verify(token, secretKeyRefresh);
+  return jwt.verify(token, secretKeyRefresh, (err, decoded) => {
+    if (decoded) return decoded;
+    if (err) return { errorJWT: true };
+  });
 };
 
 exports.createTokenForForgetPassword = (email) => {

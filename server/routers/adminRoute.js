@@ -6,6 +6,7 @@ const {
   deleteUser,
   changeRole,
   getAllUser,
+  getAllArt,
 } = require("../controllers/adminController");
 const { authorizationRoleAdmin } = require("../middleware/authorizationRole");
 
@@ -15,6 +16,7 @@ const router = Router();
 router.use(authorizationRoleAdmin);
 
 router.get("/user", getAllUser);
+router.get("/art", getAllArt);
 router.patch("/art/acc/:artId", accArt);
 router.patch("/art/refuse/:artId", refuseArt);
 router.delete("/category/delete/:categoryId", deleteCategory);

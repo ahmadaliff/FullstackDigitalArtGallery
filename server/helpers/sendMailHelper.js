@@ -54,7 +54,7 @@ exports.handleSendMailForgotPass = async (token, email) => {
         <p>
           Click to Reset Password from JobPortal
           <a
-            href="${process.env.CLIENT_URL}/reset-password/${token}"
+            href="${process.env.CLIENT_URL}${token}/reset-password/"
             id="sendPassword"
             target="_blank"
             >Reset Password</a

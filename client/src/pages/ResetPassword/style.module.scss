@@ -1,0 +1,87 @@
+@import '@styles/base';
+
+.main {
+  @include directionY;
+  padding: 2rem;
+  min-height: 100vh;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
+  * {
+    box-sizing: border-box;
+  }
+  .formWrap {
+    padding: 4rem;
+    @include apply-at-md-size {
+      padding: 2rem 10rem 2rem 10rem;
+    }
+    position: relative;
+
+    h2 {
+      margin: auto;
+      font-size: 24px;
+      font-weight: 500;
+      padding: 2rem;
+      text-align: center;
+    }
+    .form {
+      @include directionY;
+      max-width: 45rem;
+      height: auto;
+      width: 100%;
+      gap: 1.5rem;
+      .buttonSubmit {
+        width: fit-content;
+        background-color: var(--color-text);
+        color: var(--color-bg-secondary);
+        border-radius: 2.5rem;
+        padding: 0.5rem 2.5rem 0.5rem 2.5rem;
+        margin: auto;
+        box-shadow: none;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.1, 1.1);
+        }
+      }
+      .showPassword {
+        @include directionX;
+        align-items: center;
+        font-size: small;
+      }
+      p {
+        margin: 0;
+        font-size: small;
+      }
+    }
+    .backButton {
+      position: absolute;
+      box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.15);
+      font-size: medium;
+      padding: 0.25rem 1.25rem 0.25rem 1.25rem;
+      background-color: var(--color-bg-secondary);
+      text-transform: capitalize;
+      color: var(--color-text);
+      cursor: pointer;
+      border: none;
+      margin: 1rem;
+      top: 0;
+      left: 0;
+      &:hover {
+        transform: scale(1.1, 1.1);
+      }
+    }
+    .logo {
+      @include directionX;
+      top: 0;
+      right: 0;
+      margin: 1.5rem;
+      align-items: center;
+      position: absolute;
+      .title {
+        font-weight: 700;
+        font-family: Orbitron;
+        font-size: 1rem;
+      }
+    }
+  }
+}

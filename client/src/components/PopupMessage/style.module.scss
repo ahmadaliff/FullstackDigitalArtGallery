@@ -14,15 +14,16 @@
   }
 
   .button {
-    width: 100%;
+    width: fit-content;
+    margin-left: auto;
     margin-top: 1rem;
     border-radius: 1rem;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
     border: none;
     font-family: Poppins, Arial, sans-serif;
-    padding: 0.5rem;
     font-size: 0.7rem;
-    background-color: var(--color-button);
-    color: #ffffff;
+    background-color: var(--color-text);
+    color: var(--color-bg);
     cursor: pointer;
   }
 

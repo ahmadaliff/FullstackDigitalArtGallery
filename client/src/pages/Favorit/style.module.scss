@@ -1,0 +1,19 @@
+@import '@styles/base';
+.HomeWrap {
+  padding: 2rem 1rem 2rem 1rem;
+  @include directionY;
+  align-items: center;
+  gap: 1rem;
+  .headerHome {
+    font-family: Orbitron;
+    color: var(--color-accent);
+  }
+  .cardContainerWrap {
+    @include directionX;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}

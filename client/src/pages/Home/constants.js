@@ -1,0 +1,9 @@
+export const GET_ART_HOME = 'GET_ART_HOME';
+export const SET_ART = 'SET_ART';
+export const RESET_ART = 'RESET_ART';
+export const ADD_ART_FAV = 'ADD_ART_FAV';
+export const DELETE_ART_FAV = 'DELETE_ART_FAV';
+export const DELETE_ART_HOME = 'DELETE_ART_HOME';
+export const GET_ART_FAV = 'GET_ART_FAV';
+export const SET_ART_FAV = 'SET_ART_FAV';
+export const RESET_ART_FAV = 'RESET_ART_FAV';

@@ -2,33 +2,68 @@
 
 .headerWrapper {
   background-color: var(--color-bg) !important;
-  box-shadow: 0 0.25rem 0.75rem rgba(25, 49, 83, 0.2) !important;
+  box-shadow: 0 0.1rem 1rem rgba(119, 122, 126, 0.2) !important;
   position: sticky;
   top: 0;
+  z-index: 10;
   .contentWrapper {
     @include directionX;
-
     color: var(--color-text);
-    padding: 1rem;
+    padding: 0.55rem 1rem 0.55rem 1rem;
     align-items: center;
     justify-content: space-between;
     font-size: 1rem;
-
-    .logoImage {
+    .leftNav {
       @include directionX;
-      cursor: pointer;
       align-items: center;
-
-      .logo {
-        width: 1.5rem;
-        height: 1.5rem;
-        margin-right: 0.5rem;
+      gap: 1rem;
+      .hamburger {
+        @include directionY;
+        position: relative;
+        z-index: 101;
+        gap: 0.25rem;
+        cursor: pointer;
+        .spanOne,
+        .spanTwo,
+        .spanThree {
+          display: block;
+          background-color: var(--color-text);
+          height: 2px;
+          width: 1rem;
+          transition-duration: 1000ms;
+        }
       }
-      .title {
-        font-weight: 700;
+      .hamburger.open {
+        padding-top: 0.5rem;
+        .spanOne {
+          transform: rotate(45deg);
+        }
+        .spanTwo {
+          position: absolute;
+          transform: rotate(-45deg);
+        }
+        .spanThree {
+          width: 0;
+          height: 0;
+        }
+      }
+      .logoImage {
+        @include directionX;
+        cursor: pointer;
+        align-items: center;
+
+        .logo {
+          width: 1.25rem;
+          height: 1.25rem;
+          margin-right: 0.5rem;
+        }
+        .title {
+          font-weight: 700;
+          font-family: Orbitron;
+          font-size: 1rem;
+        }
       }
     }
-
     .toolbar {
       @include directionX;
       .theme {
@@ -36,6 +71,10 @@
         align-items: center;
         margin-right: 0.5rem;
         cursor: pointer;
+        svg {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
       }
       .toggle {
         @include directionX;
@@ -43,8 +82,8 @@
         cursor: pointer;
 
         .avatar {
-          width: 1.2rem;
-          height: 1.2rem;
+          width: 1rem;
+          height: 1rem;
           box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
           margin-right: 0.5rem;
         }
@@ -52,14 +91,48 @@
         .lang {
           font-family: Poppins, Arial, Helvetica, sans-serif;
           font-weight: 700;
-          font-size: 1rem;
+          font-size: 0.75rem;
           text-transform: uppercase;
         }
 
         .arrow {
-          font-size: 1rem;
+          font-size: 0.75rem;
         }
       }
+    }
+    .navItem {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      width: 0;
+      height: 100vh;
+      max-width: 15rem;
+      padding-top: 2rem;
+      overflow: hidden;
+      background-color: var(--color-bg);
+      .wrap {
+        @include directionY;
+        padding: 0 1rem 0 2rem;
+        gap: 1rem;
+        align-items: flex-start;
+        button {
+          justify-content: start;
+          padding: 0;
+          text-transform: capitalize;
+          font-weight: 700;
+          color: var(--color-text);
+          border-radius: 0;
+          border-bottom: 1px solid var(--color-text);
+        }
+        button.user {
+          color: var(--color-accent);
+        }
+      }
+    }
+    .navItem.navItemOpen {
+      width: 100vw;
+      transition-duration: 1000ms;
     }
   }
 }

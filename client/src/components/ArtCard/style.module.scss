@@ -1,0 +1,78 @@
+@import '@styles/base';
+.cardWrap {
+  position: relative;
+  width: 13rem;
+  height: 14rem;
+  .imgWrap {
+    position: relative;
+    .Skeleton {
+      position: absolute;
+      height: 14rem;
+      width: 13rem;
+    }
+    .cardImg {
+      object-fit: cover;
+      height: 14rem;
+    }
+  }
+  .imgWrap::before {
+    content: '';
+    cursor: pointer;
+    position: absolute;
+    box-shadow: inset 0 -2rem 2rem 0 rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+  }
+  @include apply-at-md-size {
+    .imgWrap::before {
+      content: none;
+    }
+  }
+  .favoritButton {
+    display: flex;
+    @include apply-at-md-size {
+      display: none;
+    }
+    position: absolute;
+    top: 0;
+    color: white;
+  }
+  .favoritButton.active {
+    color: red;
+  }
+  .cardContent {
+    position: absolute;
+    bottom: 0;
+    max-width: 100%;
+    left: 0;
+    @include apply-at-md-size {
+      left: -5rem;
+      max-width: 0;
+    }
+    width: 100%;
+    overflow: hidden;
+    color: white;
+    p {
+      font-size: medium;
+      font-family: Orbitron;
+    }
+  }
+  &:hover > .cardContent {
+    max-width: 100%;
+    left: 0;
+    cursor: pointer;
+    transition: max-width 0.2s ease-in-out;
+    transition: left 0.7s ease-in-out;
+  }
+  &:hover > .favoritButton {
+    display: flex;
+  }
+  &:hover > .imgWrap::before {
+    content: '';
+    cursor: pointer;
+    position: absolute;
+    box-shadow: inset 0 -2rem 2rem 0 rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+  }
+}

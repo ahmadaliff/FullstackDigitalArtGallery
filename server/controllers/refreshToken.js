@@ -4,6 +4,7 @@ const {
   handleNotFound,
   handleServerError,
   handleSuccess,
+  handleResponse,
 } = require("../helpers/handleResponseHelper.js");
 
 const { User } = require("../models");
@@ -11,8 +12,11 @@ const { User } = require("../models");
 exports.RefreshToken = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken) res.sendStatus(403);
-    const { id, role } = verifyRefreshToken(refreshToken);
+    if (!refreshToken) return res.sendStatus(403);
+    const { id, role, errorJWT } = verifyRefreshToken(refreshToken);
+    if (errorJWT) {
+      return handleResponse(res, 406, { message: "Refresh Token Expired" });
+    }
     const dataUser = await User.findOne({ where: { id: id, role: role } });
     if (!dataUser) {
       return handleNotFound(res);

@@ -11,7 +11,7 @@ const {
   handleSendMailVerifyOTP,
 } = require("../helpers/sendMailHelper");
 
-const { comparePassword } = require("../utils/bcryptUtil");
+const { comparePassword, hashPassword } = require("../utils/bcryptUtil");
 const {
   createToken,
   createTokenForForgetPassword,
@@ -39,7 +39,7 @@ exports.login = async (req, res) => {
     });
 
     if (!dataUser || !comparePassword(password, dataUser?.password)) {
-      return handleResponse(res, 400, "invalid email or password");
+      return handleResponse(res, 400, { message: "invalid email or password" });
     }
     const token = createToken(dataUser);
     const refreshToken = createRefreshToken(dataUser);
@@ -73,7 +73,9 @@ exports.register = async (req, res) => {
     }
     const isExist = await User.findOne({ where: { email: newUser.email } });
     if (isExist) {
-      return handleResponse(res, 409, "user with that email already existed");
+      return handleResponse(res, 409, {
+        message: "user with that email already existed",
+      });
     }
     const response = await User.create(newUser);
     return handleSuccess(res, {
@@ -118,8 +120,10 @@ exports.setResetPassword = async (req, res) => {
     if (!isUserExist) {
       return handleNotFound(res);
     }
-
-    await User.update({ password: new_password }, { where: { email: email } });
+    await User.update(
+      { password: hashPassword(new_password) },
+      { where: { email: email } }
+    );
     return handleSuccess(res, {
       message: "Success reset password",
     });
@@ -147,20 +151,24 @@ exports.editProfile = async (req, res) => {
       schemaUser,
       fieldtoEdit
     );
-    if (fieldtoEdit.includes("email")) {
+    const isExist = await User.findOne({ where: { id: id } });
+    if (!isExist) {
+      return handleNotFound(res);
+    }
+    if (fieldtoEdit.includes("email") && newUser.email != isExist.email) {
       newUser.isVerify = false;
     }
     if (error) {
       return handleRes;
     }
-    if (fieldtoEdit.includes("role") && role != "admin") {
-      return handleResponse(res, 401, {
+    if (
+      fieldtoEdit.includes("role") &&
+      newUser.role != isExist.role &&
+      role != "admin"
+    ) {
+      return handleResponse(res, 403, {
         message: "you dont have access to change role",
       });
-    }
-    const isExist = await User.findOne({ where: { id: id } });
-    if (!isExist) {
-      return handleNotFound(res);
     }
     const result = await sequelize.transaction(async (tsc) => {
       if (newUser.role && role === "admin" && isExist.role !== newUser.role) {
@@ -227,7 +235,7 @@ exports.verifyEmail = async (req, res) => {
     }
     const OTP = Math.floor(Math.random() * 9000 + 1000);
     const status = handleSendMailVerifyOTP(OTP, email);
-    if (status.accepted.length > 0) {
+    if (status) {
       return handleSuccess(res, {
         data: createTokenVerifyEmail(OTP, email),
         message: "OTP sent to email",
@@ -257,8 +265,8 @@ exports.setVerifyEmail = async (req, res) => {
     if (!dataUser) {
       return handleNotFound(res);
     }
-    if (otp !== otpJWT) {
-      return handleResponse(res, 401, { message: "OTP Invalid" });
+    if (otp != otpJWT) {
+      return handleResponse(res, 404, { message: "OTP Invalid" });
     }
     await User.update({ isVerify: true }, { where: { id: id } });
     return handleSuccess(res, { message: "success verify" });

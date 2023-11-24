@@ -6,7 +6,10 @@ exports.authenticationMiddleware = async (req, res, next) => {
   if (!authHeader) return res.sendStatus(401);
   const token = authHeader.replace("Bearer ", "");
 
-  const { id, role } = verifyToken(token);
+  const { id, role, error } = verifyToken(token);
+  if (error) {
+    return res.sendStatus(401);
+  }
   const isExist = await User.findOne({ where: { id: id } });
   if (!isExist || isExist.role != role) {
     return res.sendStatus(401);

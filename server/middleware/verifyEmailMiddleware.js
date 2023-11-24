@@ -1,9 +1,9 @@
 const { verifyTokenVerifyEmail } = require("../utils/jwtUtil");
 
 exports.verifyEmailMiddleware = async (req, res, next) => {
-  const token = req.params;
-  if (!token) return res.sendStatus(401);
-  const { email, otp } = verifyTokenVerifyEmail(token);
+  const { tokenOtp } = req.body;
+  if (!tokenOtp) return res.sendStatus(403);
+  const { email, otp } = verifyTokenVerifyEmail(tokenOtp);
   req.email = email;
   req.otpJWT = otp;
   next();

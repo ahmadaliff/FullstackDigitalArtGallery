@@ -113,16 +113,14 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "schema": {
               "type": "object",
               "properties": {
+                "token": {
+                  "example": "any"
+                },
                 "new_password": {
                   "example": "any"
                 }
@@ -137,7 +135,7 @@
         }
       }
     },
-    "/api/art": {
+    "/api/dataart": {
       "get": {
         "tags": [
           "GlobalRoute"
@@ -164,6 +162,29 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/refresh": {
+      "get": {
+        "description": "",
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/category": {
+      "get": {
+        "tags": [
+          "GlobalRoute"
+        ],
+        "description": "",
         "responses": {
           "default": {
             "description": ""
@@ -213,6 +234,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "email": {
+                  "example": "any"
+                },
                 "isVerify": {
                   "example": "any"
                 },
@@ -265,11 +289,26 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tokenOtp": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "401": {
             "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
@@ -287,6 +326,28 @@
             "required": true,
             "type": "string"
           },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/get-favorit-art": {
+      "get": {
+        "tags": [
+          "GlobalRoute"
+        ],
+        "description": "",
+        "parameters": [
           {
             "name": "authorization",
             "in": "header",
@@ -398,6 +459,28 @@
         }
       }
     },
+    "/api/artist/art/category/add": {
+      "post": {
+        "tags": [
+          "artistRoute"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/api/artist/art/update/{artId}": {
       "put": {
         "tags": [
@@ -466,8 +549,8 @@
         }
       }
     },
-    "/api/admin/art/acc": {
-      "patch": {
+    "/api/admin/art": {
+      "get": {
         "tags": [
           "adminRoute"
         ],
@@ -488,13 +571,47 @@
         }
       }
     },
-    "/api/admin/art/refuse": {
+    "/api/admin/art/acc/{artId}": {
       "patch": {
         "tags": [
           "adminRoute"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "artId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/admin/art/refuse/{artId}": {
+      "patch": {
+        "tags": [
+          "adminRoute"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "artId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",

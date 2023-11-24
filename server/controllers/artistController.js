@@ -1,4 +1,4 @@
-const { Sequelize } = require("sequelize");
+const { unlink } = require("fs");
 const {
   handleNotFound,
   handleServerError,
@@ -10,7 +10,7 @@ const {
   schemaArt,
   schemaCategory,
 } = require("../helpers/joiHelper");
-const { Art } = require("../models");
+const { Art, Category } = require("../models");
 
 // add art
 exports.addArt = async (req, res) => {
@@ -34,7 +34,10 @@ exports.addArt = async (req, res) => {
       return handleRes;
     }
     const response = await Art.create(newArt);
-    return handleCreated(res, { data: response, message: "success" });
+    return handleCreated(res, {
+      data: response,
+      message: "success, Your Art need to aca by admin to show on homepage",
+    });
   } catch (error) {
     return handleServerError(res);
   }
@@ -50,11 +53,19 @@ exports.updateArt = async (req, res) => {
       }
   */
   try {
-    const imagePath = req.file.path;
+    const imagePath = req?.file?.path;
     const newArt = req.body;
     const { artId } = req.params;
     const { id } = req;
-    newArt.imagePath = imagePath;
+    const isExist = await Art.findByPk(artId);
+
+    if (!isExist) {
+      return handleNotFound(res);
+    }
+    if (imagePath) {
+      newArt.imagePath = imagePath;
+      unlink(isExist.imagePath, (err) => {});
+    }
     newArt.userId = id;
     newArt.isAcc = false;
     const fieldToUpdate = Object.keys(newArt);
@@ -66,11 +77,6 @@ exports.updateArt = async (req, res) => {
     );
     if (error) {
       return handleRes;
-    }
-
-    const isExist = await Art.findByPk(artId);
-    if (!isExist) {
-      return handleNotFound(res);
     }
     await Art.update(newArt, { where: { id: artId } });
     return handleCreated(res, { message: "success" });
@@ -90,10 +96,9 @@ exports.addCategory = async (req, res) => {
   */
   try {
     const { name } = req.body;
-    // const
     const isCategoryExist = await Category.findOne({
       where: {
-        [Sequelize.Op.iLike]: name,
+        name: name,
       },
     });
     if (isCategoryExist) {
@@ -109,7 +114,7 @@ exports.addCategory = async (req, res) => {
     if (error) {
       return handleRes;
     }
-    const response = await Category.create(name);
+    const response = await Category.create({ name: name });
     return handleCreated(res, { data: response, message: "success" });
   } catch (error) {
     return handleServerError(res);

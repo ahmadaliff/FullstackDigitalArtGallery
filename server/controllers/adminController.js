@@ -7,6 +7,22 @@ const {
 
 const { User, Art, Category, sequelize } = require("../models");
 
+exports.getAllArt = async (req, res) => {
+  // #swagger.tags = ['adminRoute']
+  /* #swagger.parameters['authorization'] ={
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      }
+  */
+  try {
+    const response = await Art.findAll({ where: { isAcc: false } });
+    return handleSuccess(res, { data: response, message: "success" });
+  } catch (error) {
+    return handleServerError(res);
+  }
+};
 // get user
 exports.getAllUser = async (req, res) => {
   // #swagger.tags = ['adminRoute']
@@ -160,15 +176,19 @@ exports.changeRole = async (req, res) => {
   */
   try {
     const { userId } = req.params;
-    const isExist = await findByPk(userId);
+    const isExist = await User.findByPk(userId);
     if (!isExist) {
       return handleNotFound(res);
     }
-    await User.update(
+    const response = await User.update(
       { role: isExist.role === "admin" ? "artist" : "admin" },
       { where: { id: userId } }
     );
-    return handleSuccess(res, { message: "success" });
+    isExist.role = isExist.role === "admin" ? "artist" : "admin";
+    return handleSuccess(res, {
+      data: isExist,
+      message: "success",
+    });
   } catch (error) {
     return handleServerError(res);
   }

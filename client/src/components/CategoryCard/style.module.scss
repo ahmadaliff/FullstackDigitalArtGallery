@@ -1,0 +1,22 @@
+@import '@styles/base';
+.cardWrap {
+  @include directionY;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  p {
+    margin: 0;
+  }
+  .categoryWrap {
+    @include directionX;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .pillCategory {
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    text-transform: capitalize;
+    font-size: small;
+    font-weight: 600;
+  }
+}

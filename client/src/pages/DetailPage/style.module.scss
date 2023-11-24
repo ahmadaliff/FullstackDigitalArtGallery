@@ -1,0 +1,40 @@
+@import '@styles/base';
+
+.main {
+  @include directionY;
+  padding: 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+  .imgWrap {
+    width: 100%;
+    @include directionY;
+    justify-content: center;
+    align-items: center;
+    @include apply-at-md-size {
+      width: auto;
+      display: block;
+    }
+    .cardImg,
+    .Skeleton {
+      width: 14rem;
+      height: auto;
+      margin: 1rem;
+      float: none;
+      @include apply-at-md-size {
+        float: left;
+      }
+    }
+    width: 100%;
+    height: auto;
+    .title {
+      color: var(--color-text);
+    }
+    .description {
+      @include apply-at-md-size {
+        text-align: justify;
+      }
+      font-size: medium;
+      color: var(--color-text);
+    }
+  }
+}

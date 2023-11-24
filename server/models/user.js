@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       hooks: {
         beforeCreate: (user) => {
           user.password = hashPassword(user.password);
+          user.isVerify = false;
           if (!user.role) {
             user.role = "artist";
           }

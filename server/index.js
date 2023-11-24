@@ -13,12 +13,19 @@ const app = express();
 const PORT = process.env.APP_PORT || 5000;
 
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_HOST,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // swagger
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile, options));
+// image upload
+app.use("/uploads", express.static("uploads"));
 
 app.use("/api", router);
 

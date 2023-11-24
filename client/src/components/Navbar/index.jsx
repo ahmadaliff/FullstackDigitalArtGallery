@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { connect, useDispatch } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { FormattedMessage, injectIntl } from 'react-intl';
+
+import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,13 +14,17 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 
 import { setLocale, setTheme } from '@containers/App/actions';
+import { selectLogin } from '@containers/Client/selectors';
+import { selectUser } from '@pages/UserList/selectors';
+import { validateLogout } from '@pages/Login/actions';
 
 import classes from './style.module.scss';
 
-const Navbar = ({ title, locale, theme }) => {
+const Navbar = ({ login, user, title, locale, theme }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [menuPosition, setMenuPosition] = useState(null);
+  const [openNav, setOpenNav] = useState(false);
   const open = Boolean(menuPosition);
 
   const handleClick = (event) => {
@@ -26,6 +33,13 @@ const Navbar = ({ title, locale, theme }) => {
 
   const handleClose = () => {
     setMenuPosition(null);
+  };
+  const handleCloseNav = () => {
+    setOpenNav(!openNav);
+  };
+  const handleNavigate = (to) => {
+    setOpenNav(false);
+    navigate(to);
   };
 
   const handleTheme = () => {
@@ -46,9 +60,15 @@ const Navbar = ({ title, locale, theme }) => {
   return (
     <div className={classes.headerWrapper} data-testid="navbar">
       <div className={classes.contentWrapper}>
-        <div className={classes.logoImage} onClick={goHome}>
-          <img src="/vite.svg" alt="logo" className={classes.logo} />
-          <div className={classes.title}>{title}</div>
+        <div className={classes.leftNav}>
+          <div className={`${classes.hamburger} ${openNav && classes.open}`} onClick={() => handleCloseNav()}>
+            <span className={classes.spanOne} />
+            <span className={classes.spanTwo} />
+            <span className={classes.spanThree} />
+          </div>
+          <div className={classes.logoImage} onClick={goHome}>
+            <div className={classes.title}>{title}</div>
+          </div>
         </div>
         <div className={classes.toolbar}>
           <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
@@ -78,6 +98,61 @@ const Navbar = ({ title, locale, theme }) => {
             </div>
           </MenuItem>
         </Menu>
+        <div className={`${classes.navItem} ${openNav && classes.navItemOpen}`}>
+          <ul className={classes.wrap}>
+            {login ? (
+              <>
+                {user?.role === 'artist' ? (
+                  <Button fullWidth onClick={() => handleNavigate('/art/add')}>
+                    <FormattedMessage id="app_art_add_header" />
+                  </Button>
+                ) : (
+                  <>
+                    <Button fullWidth onClick={() => handleNavigate('/admin/waiting-art')}>
+                      <FormattedMessage id="app_waiting_header" />
+                    </Button>
+                    <Button fullWidth onClick={() => handleNavigate('/admin/category-list')}>
+                      <FormattedMessage id="app_category_list_header" />
+                    </Button>
+                    <Button fullWidth onClick={() => handleNavigate('/admin/user')}>
+                      <FormattedMessage id="app_user_list_header" />
+                    </Button>
+                  </>
+                )}
+                <Button fullWidth onClick={() => handleNavigate('/favorit')}>
+                  Favorit
+                </Button>
+                <Button fullWidth className={classes.user} onClick={() => handleNavigate('/profile')}>
+                  <FormattedMessage id="app_profile" />
+                </Button>
+                <Button
+                  fullWidth
+                  className={classes.user}
+                  onClick={() =>
+                    dispatch(
+                      validateLogout(() =>
+                        setTimeout(() => {
+                          handleNavigate('/login');
+                        }, 1000)
+                      )
+                    )
+                  }
+                >
+                  <FormattedMessage id="app_logout_header" />
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button fullWidth className={classes.user} onClick={() => handleNavigate('/login')}>
+                  <FormattedMessage id="app_login_header" />
+                </Button>
+                <Button fullWidth className={classes.user} onClick={() => handleNavigate('/register')}>
+                  <FormattedMessage id="app_Register_header" />
+                </Button>
+              </>
+            )}
+          </ul>
+        </div>
       </div>
     </div>
   );
@@ -87,6 +162,13 @@ Navbar.propTypes = {
   title: PropTypes.string,
   locale: PropTypes.string.isRequired,
   theme: PropTypes.string,
+  login: PropTypes.bool,
+  user: PropTypes.object,
 };
 
-export default Navbar;
+const mapStateToProps = createStructuredSelector({
+  login: selectLogin,
+  user: selectUser,
+});
+
+export default injectIntl(connect(mapStateToProps)(Navbar));

@@ -27,6 +27,8 @@ const {
   deleteArtFromFavorit,
   getAllArt,
   getDetailArt,
+  getCategory,
+  getFavorit,
 } = require("../controllers/artController");
 const {
   verifyEmailMiddleware,
@@ -42,9 +44,10 @@ router.post("/login", login);
 router.post("/register", register);
 router.post("/forgot-password", forgotPassword);
 router.post("/set-reset-password", verifySendResetMiddleware, setResetPassword);
-router.get("/art", getAllArt);
+router.get("/dataart", getAllArt);
 router.get("/art/:artId", getDetailArt);
 router.get("/refresh", RefreshToken);
+router.get("/category", getCategory);
 
 // must login
 router.use(authenticationMiddleware);
@@ -52,13 +55,10 @@ router.use(authenticationMiddleware);
 router.get("/get-profile", getProfile);
 router.put("/edit-profile", editProfile);
 router.post("/verify-email", verifyEmail);
-router.patch("/set-verify-email/:token", verifyEmailMiddleware, setVerifyEmail);
+router.patch("/set-verify-email", verifyEmailMiddleware, setVerifyEmail);
 router.delete("/art/delete/:artId", authorizationIsOwnArt, deleteArt);
-router.post(
-  "/art/add-to-favorit/:artId",
-  authorizationIsOwnFavorit,
-  addArtToFavorit
-);
+router.get("/get-favorit-art", getFavorit);
+router.post("/art/add-to-favorit/:artId", addArtToFavorit);
 router.delete(
   "/art/delete-from-favorit/:artId",
   authorizationIsOwnFavorit,
