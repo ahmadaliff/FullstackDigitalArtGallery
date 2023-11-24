@@ -13,7 +13,7 @@ exports.handleSendMailForgotPass = async (token, email) => {
   const message = {
     from: process.env.MY_EMAIL,
     to: email,
-    subject: "Reset Password JobPortal Ahmad Alif Sofian",
+    subject: "Reset Password Digital Art gallery Ahmad Alif Sofian",
     html: `<body>
   <div
     style="
@@ -33,12 +33,12 @@ exports.handleSendMailForgotPass = async (token, email) => {
             font-weight: 600;
           "
         >
-          JobPortal Ahmad Alif Sofian
+          Digital Art gallery Ahmad Alif Sofian
         </p>
       </div>
       <p style="font-size: 1.1em">Hi,</p>
       <p>
-        Thank you for choosing JobPortal Ahmad Alif Sofian. Use the following
+        Thank you for choosing Digital Art gallery Ahmad Alif Sofian. Use the following
         reset password to login
       </p>
       <h2
@@ -52,7 +52,7 @@ exports.handleSendMailForgotPass = async (token, email) => {
         "
       >
         <p>
-          Click to Reset Password from JobPortal
+          Click to Reset Password from Digital Art gallery
           <a
             href="${process.env.CLIENT_URL}${token}/reset-password/"
             id="sendPassword"
@@ -86,7 +86,7 @@ exports.handleSendMailVerifyOTP = async (OTP, email) => {
   const message = {
     from: process.env.MY_EMAIL,
     to: email,
-    subject: "Reset Password JobPortal Ahmad Alif Sofian",
+    subject: "Reset Password Digital Art gallery Ahmad Alif Sofian",
     html: `<body>
   <div
     style="
@@ -106,12 +106,12 @@ exports.handleSendMailVerifyOTP = async (OTP, email) => {
             font-weight: 600;
           "
         >
-          JobPortal Ahmad Alif Sofian
+          Digital Art gallery Ahmad Alif Sofian
         </p>
       </div>
       <p style="font-size: 1.1em">Hi,</p>
       <p>
-        Thank you for choosing JobPortal Ahmad Alif Sofian. Use the following
+        Thank you for choosing Digital Art gallery Ahmad Alif Sofian. Use the following
         reset password to login
       </p>
       <h2
