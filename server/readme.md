@@ -123,6 +123,42 @@ _response(400,bad request)_
 
 ---
 
+### POST /api/dataart
+
+> get art
+
+_Request Header_
+
+```
+not needed
+```
+
+_Request Body_
+
+```
+not needed
+```
+
+_Response (200)_
+
+```
+{
+    data:{
+        data art
+    }
+    "message": "Login success"
+}
+```
+
+_response(404,not found)_
+
+```
+"data not found"
+
+```
+
+---
+
 ### POST /api/register
 
 > register
@@ -283,15 +319,9 @@ _Response (404, not found)_
 
 ```
 
-### PATCH /api/set-verify-email/:token
+### PATCH /api/set-verify-email/
 
 > set Verify email true
-
-_Request Params_
-
-```
- <Token>
-```
 
 _Request Header_
 
@@ -302,7 +332,7 @@ Bearer Token
 _Request Body_
 
 ```
-{otp:otp}
+{otp:otp,token:token}
 ```
 
 _Response (200)_
@@ -356,6 +386,76 @@ _Response (200)_
         "isVerify": false,
         "createdAt": "2023-11-17T09:09:51.000Z",
         "updatedAt": "2023-11-17T09:09:51.000Z"
+    },
+    "message": "success"
+}
+```
+
+_Response (404, not found)_
+
+```
+ {message:"Data Not Found"}
+
+```
+
+---
+
+### GET /api/category
+
+> get category
+
+_Request Header_
+
+```
+Bearer Token
+```
+
+_Request Body_
+
+```
+not needed
+```
+
+_Response (200)_
+
+```
+{
+    "data": {category
+    },
+    "message": "success"
+}
+```
+
+_Response (404, not found)_
+
+```
+ {message:"Data Not Found"}
+
+```
+
+---
+
+### GET /api/favorit
+
+> get favorit
+
+_Request Header_
+
+```
+Bearer Token
+```
+
+_Request Body_
+
+```
+not needed
+```
+
+_Response (200)_
+
+```
+{
+    "data": {fav
     },
     "message": "success"
 }
@@ -735,6 +835,51 @@ _Response (200)_
             role: STRING,
             isVerify: BOOLEAN,
         }
+    ],
+    "message": "success"
+}
+
+```
+
+_Response (404)_
+
+```
+
+{
+    "message": "Data Not Found"
+}
+
+```
+
+---
+
+### GET /api/admin/art
+
+> Get all Art Waiting
+
+_Request Header_
+
+```
+
+Bearer Token
+
+```
+
+_Request Body_
+
+```
+
+not needed
+
+```
+
+_Response (200)_
+
+```
+
+{
+    "data": [
+        art data
     ],
     "message": "success"
 }
