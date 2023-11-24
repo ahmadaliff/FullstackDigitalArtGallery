@@ -59,11 +59,17 @@
       justify-content: space-between;
       gap: 2rem;
       padding: 1rem;
-      p {
-        font-size: small;
+      .userData {
+        max-width: 10rem;
+        p {
+          font-size: small;
+        }
       }
-      button {
-        text-transform: capitalize;
+      .button {
+        @include directionX;
+        button {
+          text-transform: capitalize;
+        }
       }
     }
   }

@@ -59,15 +59,18 @@ const UserList = ({ login, user, usersData, intl: { formatMessage } }) => {
         </h2>
         {usersData?.map((val, key) => (
           <Card key={key} className={classes.userWrap}>
-            <div>
+            <div className={classes.userData}>
               <p>
                 <FormattedMessage id="app_user_fullName" /> :{val.fullName}
               </p>
               <p>
                 <FormattedMessage id="app_register_role" />:{val.role}
               </p>
+              <p>
+                <FormattedMessage id="app_user_email" />:{val.email}
+              </p>
             </div>
-            <div>
+            <div className={classes.button}>
               <Button size="small" onClick={() => handlechangeRole(val.id)}>
                 change Role
               </Button>
