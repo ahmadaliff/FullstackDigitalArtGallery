@@ -19,7 +19,7 @@ const artReducer = (state = initialState, action) =>
         }
         break;
       case DELETE_CATEGORY:
-        draft.category = state.category.filter((fil) => fil.id === action.id);
+        draft.category = state.category.filter((fil) => fil.id !== action.id);
         break;
       case RESET_CATEGORY:
         return initialState;
