@@ -70,7 +70,7 @@ const Home = ({ login, user, arts, fav }) => {
       <CategoryCard filterFunc={handleFilterCategory} filterTitle={setFilterTitle} />
       <div className={classes.cardContainerWrap}>
         {arts
-          ?.filter((fil) => fil.title.includes(filterTitle))
+          ?.filter((fil) => fil.title.toLowerCase().includes(filterTitle.toLowerCase()))
           .filter((fil) => (filterCategory !== '' ? fil.categoryId === filterCategory : fil))
           .map((val, key) => (
             <div key={key} className={classes.cardContainer}>

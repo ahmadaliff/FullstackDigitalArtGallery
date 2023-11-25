@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0",
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
@@ -8,21 +9,13 @@
   "host": "localhost:5000",
   "servers": "http://localhost:5000/",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/api/login": {
       "post": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -50,9 +43,7 @@
     },
     "/api/register": {
       "post": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -80,9 +71,7 @@
     },
     "/api/forgot-password": {
       "post": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -107,9 +96,7 @@
     },
     "/api/set-reset-password": {
       "post": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -137,9 +124,7 @@
     },
     "/api/dataart": {
       "get": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "responses": {
           "default": {
@@ -150,9 +135,7 @@
     },
     "/api/art/{artId}": {
       "get": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -181,9 +164,7 @@
     },
     "/api/category": {
       "get": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "responses": {
           "default": {
@@ -194,9 +175,7 @@
     },
     "/api/get-profile": {
       "get": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -216,9 +195,7 @@
     },
     "/api/edit-profile": {
       "put": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -256,9 +233,7 @@
     },
     "/api/verify-email": {
       "post": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -278,9 +253,7 @@
     },
     "/api/set-verify-email": {
       "patch": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -315,9 +288,7 @@
     },
     "/api/art/delete/{artId}": {
       "delete": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -343,9 +314,7 @@
     },
     "/api/get-favorit-art": {
       "get": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -365,9 +334,7 @@
     },
     "/api/art/add-to-favorit/{artId}": {
       "post": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -393,9 +360,7 @@
     },
     "/api/art/delete-from-favorit/{artId}": {
       "delete": {
-        "tags": [
-          "GlobalRoute"
-        ],
+        "tags": ["GlobalRoute"],
         "description": "",
         "parameters": [
           {
@@ -421,9 +386,7 @@
     },
     "/api/artist/art/add": {
       "post": {
-        "tags": [
-          "artistRoute"
-        ],
+        "tags": ["artistRoute"],
         "description": "",
         "parameters": [
           {
@@ -461,9 +424,7 @@
     },
     "/api/artist/art/category/add": {
       "post": {
-        "tags": [
-          "artistRoute"
-        ],
+        "tags": ["artistRoute"],
         "description": "",
         "parameters": [
           {
@@ -483,9 +444,7 @@
     },
     "/api/artist/art/update/{artId}": {
       "put": {
-        "tags": [
-          "artistRoute"
-        ],
+        "tags": ["artistRoute"],
         "description": "",
         "parameters": [
           {
@@ -529,9 +488,7 @@
     },
     "/api/admin/user": {
       "get": {
-        "tags": [
-          "adminRoute"
-        ],
+        "tags": ["adminRoute"],
         "description": "",
         "parameters": [
           {
@@ -551,9 +508,7 @@
     },
     "/api/admin/art": {
       "get": {
-        "tags": [
-          "adminRoute"
-        ],
+        "tags": ["adminRoute"],
         "description": "",
         "parameters": [
           {
@@ -573,9 +528,7 @@
     },
     "/api/admin/art/acc/{artId}": {
       "patch": {
-        "tags": [
-          "adminRoute"
-        ],
+        "tags": ["adminRoute"],
         "description": "",
         "parameters": [
           {
@@ -601,9 +554,7 @@
     },
     "/api/admin/art/refuse/{artId}": {
       "patch": {
-        "tags": [
-          "adminRoute"
-        ],
+        "tags": ["adminRoute"],
         "description": "",
         "parameters": [
           {
@@ -629,9 +580,7 @@
     },
     "/api/admin/category/delete/{categoryId}": {
       "delete": {
-        "tags": [
-          "adminRoute"
-        ],
+        "tags": ["adminRoute"],
         "description": "",
         "parameters": [
           {
@@ -657,9 +606,7 @@
     },
     "/api/admin/user/delete/{userId}": {
       "delete": {
-        "tags": [
-          "adminRoute"
-        ],
+        "tags": ["adminRoute"],
         "description": "",
         "parameters": [
           {
@@ -685,9 +632,7 @@
     },
     "/api/admin/user/change-role/{userId}": {
       "patch": {
-        "tags": [
-          "adminRoute"
-        ],
+        "tags": ["adminRoute"],
         "description": "",
         "parameters": [
           {

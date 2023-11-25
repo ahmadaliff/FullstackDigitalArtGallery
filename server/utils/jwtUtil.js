@@ -13,7 +13,7 @@ exports.createToken = (user) => {
     return false;
   }
   return jwt.sign({ id, role }, secretKey, {
-    expiresIn: "30s",
+    expiresIn: "10m",
   });
 };
 
